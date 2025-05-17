@@ -7,6 +7,7 @@ Template for creating a FastAPI API, includes:
 - Environment-based configuration
 - Request/Response and error logging
 - Pydantic models for data validation
+- Dockerized setup
 
 ### Docker Execution
 
