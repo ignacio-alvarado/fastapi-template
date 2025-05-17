@@ -1,0 +1,38 @@
+services:
+  app-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8000:8000
+    volumes:
+      - ./src/:/app
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    container_name: app-test-mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/data/db
+    env_file:
+      - .env
+    environment:
+      MONGO_INITDB_DATABASE: ${NO_SQL_DB}
+      MONGO_INITDB_ROOT_USERNAME: ${NO_SQL_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${NO_SQL_PASSWORD}
+    networks:
+      - app-network
+
+volumes:
+  mongo_data:
+
+networks:
+  app-network:
+    driver: bridge

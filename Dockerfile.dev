@@ -1,0 +1,9 @@
+FROM python:3.13-alpine
+
+WORKDIR /app
+
+COPY ./src /app
+
+RUN pip3 install --no-cache-dir --upgrade -r /app/requirements.txt
+
+CMD ["python3", "-m", "fastapi", "dev", "main.py", "--host", "0.0.0.0"]
