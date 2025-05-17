@@ -9,7 +9,7 @@ Template for creating a FastAPI API, includes:
 - Pydantic models for data validation
 - Dockerized setup
 
-### Docker Execution
+## Docker Execution
 
 Docker Compose
 ```sh
@@ -17,9 +17,22 @@ docker compose build
 docker compose up
 ```
 
-### API Documentation
+## API Documentation
 
 [http://localhost:8000/docs#/](http://localhost:8000/docs#/)
 
-### Contact
+## Contributing
+There are several ways to contribute to this project:
+
+1. Create issues to report bugs or suggest new features
+2. Submit pull requests with code improvements or new features
+4. Share feedback and suggestions
+
+Please make sure to:
+- Check existing issues before creating new ones
+- Follow the code style guidelines
+
+Your contributions are greatly appreciated!
+
+## Contact
 [ignacio.alvaradome@gmail.com](mailto:ignacio.alvaradome@gmail.com)
