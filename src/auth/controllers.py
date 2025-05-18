@@ -8,7 +8,7 @@ from config.db import get_db
 from user.models import User, Role
 from auth.schemas import RegisterRequest, LoginRequest  
 from auth.utils.token import create_token, verify_token, create_activation_token
-from auth.utils.email import send_email
+from auth.utils.email import send_activation_email
 
 async def register_user(user: RegisterRequest, db: Annotated[AsyncMongoClient, Depends(get_db)]) -> str:
     """
@@ -47,7 +47,7 @@ async def register_user(user: RegisterRequest, db: Annotated[AsyncMongoClient, D
 
     # Send email
     try:
-        send_email(user.email, "Activate your account", f"Click <a href='http://localhost:8000/auth/activate/{token}'>here</a> to activate your account")
+        send_activation_email(user.email, token)
     except Exception as e:
         raise Exception(f"Failed to send email: {e}")
     

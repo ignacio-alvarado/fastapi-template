@@ -14,4 +14,6 @@ app_settings = {
     "email_host": os.getenv('EMAIL_HOST', 'localhost'),
     "email_port": int(os.getenv('EMAIL_PORT', 587)),
     "email_password": os.getenv('EMAIL_PASSWORD', 'password'),
+    "app_url": os.getenv('APP_URL', 'http://localhost:8000'),
+    "app_name": os.getenv('APP_NAME', 'Test App'),
 } 
