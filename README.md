@@ -1,6 +1,7 @@
 # FastAPI Template #
 Template for creating a FastAPI API, includes:
 - OAuth2 with password and Bearer JWT Tokens (registration, login, token refresh)
+- User activation with email
 - Secure password hashing with bcrypt
 - User authorization with role-based access control
 - MongoDB database integration with async support
