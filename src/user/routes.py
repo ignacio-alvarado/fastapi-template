@@ -13,3 +13,7 @@ user_router = APIRouter()
 async def get_users(db: Annotated[AsyncMongoClient, Depends(get_db)], _: Annotated[User, Depends(UserPermissionChecker(roles=["admin"]))]) -> list[User]:
     users = await list_users(db)
     return users
+
+@user_router.get("/me")
+async def get_me(user: Annotated[User, Depends(UserPermissionChecker(roles=["admin", "user"]))]) -> User:
+    return user
