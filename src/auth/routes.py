@@ -1,11 +1,12 @@
-from auth.schemas import LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, RefreshRequest
-from auth.controllers import register_user, get_token, refresh_token
-
 from fastapi import APIRouter, Depends, HTTPException
 from pymongo import AsyncMongoClient
 from config.db import get_db
 from typing import Annotated
 from utils.logger import logger
+
+from auth.schemas import LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, RefreshRequest
+from auth.controllers import register_user, get_token, refresh_token, activate_user
+from user.models import User
 
 auth_router = APIRouter()
 
@@ -28,10 +29,19 @@ async def login(request: LoginRequest, db: Annotated[AsyncMongoClient, Depends(g
         raise HTTPException(status_code=401, detail=str(e))
     
 @auth_router.post("/refresh")
-async def refresh(request: RefreshRequest, db: Annotated[AsyncMongoClient, Depends(get_db)]) -> LoginResponse:
+async def refresh(request: RefreshRequest) -> LoginResponse:
     try:
         tokens = refresh_token(request.refresh_token)
         return LoginResponse(access_token=tokens['access_token'], refresh_token=tokens['refresh_token'])
     except Exception as e:
         logger.error(f"Error refreshing token: {e}")
         raise HTTPException(status_code=401, detail=str(e))
+
+@auth_router.get("/activate/{token}")
+async def activate(token: str, db: Annotated[AsyncMongoClient, Depends(get_db)]) -> User:
+    try:
+        user = await activate_user(token, db)
+        return user
+    except Exception as e:
+        logger.error(f"Error activating user: {e}")
+        raise HTTPException(status_code=400, detail=str(e))

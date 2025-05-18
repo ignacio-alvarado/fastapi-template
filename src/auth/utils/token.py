@@ -37,6 +37,22 @@ def create_token(user_id: str, role: str = None) -> dict:
         )
     }
 
+def create_activation_token(user_id: str) -> dict:
+    """
+    Create a JWT activation token for a user.
+
+    Args:
+        user_id (str): The ID of the user to create a token for.
+
+    Returns:
+        dict: The JWT token.
+    """
+    return encode(
+        {"sub": str(user_id), "type": "activation"},
+        app_settings.get('jwt_secret'),
+        algorithm=app_settings.get('jwt_algorithm')
+    )
+
 def verify_token(token: str) -> dict:
     """
     Verify and decode a JWT token.

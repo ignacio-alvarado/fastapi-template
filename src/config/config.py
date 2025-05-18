@@ -10,4 +10,8 @@ app_settings = {
     "jwt_algorithm": os.getenv('JWT_ALGORITHM', 'HS256'),
     "jwt_expiration_minutes": int(os.getenv('JWT_EXPIRATION_MINUTES', 30)),
     "jwt_refresh_expiration_days": int(os.getenv('JWT_REFRESH_EXPIRATION_DAYS', 30)),
+    "email_from": os.getenv('EMAIL_FROM', 'localhost@localhost.com'),
+    "email_host": os.getenv('EMAIL_HOST', 'localhost'),
+    "email_port": int(os.getenv('EMAIL_PORT', 587)),
+    "email_password": os.getenv('EMAIL_PASSWORD', 'password'),
 } 
